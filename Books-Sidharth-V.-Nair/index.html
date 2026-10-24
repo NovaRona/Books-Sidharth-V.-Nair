@@ -1,0 +1,310 @@
+<!-- Made By Human(s), Made By Sidharth V. Nair -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#171b2b"><link rel="icon" type="image/svg+xml" href="assets/book-icon.svg"><link rel="apple-touch-icon" href="assets/book-icon.svg">
+<meta name="description" content="Explore the books and writing of Sidharth V. Nair, including The Hidden Power Of Discipline and Brothers, Sisters.">
+<title>Books @Sidharth V. Nair</title>
+<style>
+:root{color-scheme:dark;--bg:#111522;--panel:#1b2233;--panel2:#202a3e;--ink:#f6f3ed;--muted:#c0c7d5;--accent:#ffb45e;--line:#ffffff20;--max:1080px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#35415c 0,transparent 38%),radial-gradient(ellipse at 95% 38%,#4c302b 0,transparent 32%),var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.65}
+a{color:inherit}.site-header{position:sticky;top:0;z-index:10;background:#111522eF;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}.nav{max-width:var(--max);margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-family:Georgia,serif;font-size:clamp(18px,3vw,24px);font-weight:700;letter-spacing:-.4px}.nav-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 17px;border-radius:11px;border:1px solid var(--line);text-decoration:none;font-weight:700;transition:transform .15s,background .15s}.button:hover{transform:translateY(-1px)}.button-primary{background:var(--accent);color:#25190f;border-color:transparent}.button-secondary{background:#ffffff0b}.wrap{max-width:var(--max);margin:auto;padding:0 22px}.hero{padding:clamp(55px,9vw,100px) 0 55px}.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:800;color:var(--accent)}h1,h2,h3{font-family:Georgia,'Times New Roman',serif;line-height:1.12}h1{font-size:clamp(38px,7vw,72px);letter-spacing:-1.8px;max-width:800px;margin:12px 0 20px}.hero p{max-width:720px;font-size:clamp(16px,2vw,19px);color:var(--muted)}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}.section{padding:38px 0 58px}.section-heading{font-size:clamp(28px,4vw,40px);margin:0 0 10px}.section-intro{color:var(--muted);max-width:700px;margin:0 0 26px}.book-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.book-card{display:grid;grid-template-columns:minmax(115px,180px) 1fr;gap:22px;align-items:center;padding:22px;background:linear-gradient(145deg,#ffffff0c,#ffffff05);border:1px solid var(--line);border-radius:20px;min-width:0}.cover{width:100%;max-height:260px;object-fit:cover;border-radius:8px;box-shadow:0 14px 30px #0005}.book-card h3{font-size:clamp(21px,2.5vw,28px);margin:0 0 10px}.book-card p{color:var(--muted);font-size:14px;margin:0 0 17px}.pill{display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:5px 9px;border:1px solid var(--line);border-radius:999px;margin-bottom:12px;color:#ffe0b6}.story{padding:26px;border-radius:18px;background:var(--panel);border:1px solid var(--line)}.story p{color:var(--muted)}.list{padding-left:20px;color:var(--muted)}.list li{margin:8px 0}.future{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.future .story{height:100%}.site-footer{border-top:1px solid var(--line);margin-top:30px;padding:30px 22px 42px;text-align:center;color:var(--muted);font-size:13px}.footer-inner{max-width:var(--max);margin:auto}.small{font-size:12px;color:var(--muted)}
+@media(max-width:760px){.book-grid,.future{grid-template-columns:1fr}.book-card{grid-template-columns:minmax(100px,145px) 1fr;padding:16px;gap:16px}.nav{align-items:flex-start}.nav-actions .button{padding:9px 11px;font-size:13px}}
+@media(max-width:430px){.book-card{grid-template-columns:1fr}.cover{width:min(65%,190px);display:block;margin:auto}.nav{flex-direction:column}.nav-actions{width:100%}.nav-actions .button{flex:1}}
+
+.book-card-clickable{cursor:pointer;transition:transform .18s,border-color .18s,box-shadow .18s}
+.book-card-clickable:hover,.book-card-clickable:focus-visible{transform:translateY(-3px);border-color:#ffb45e88;box-shadow:0 14px 32px #0004;outline:none}
+.book-card-clickable .button{pointer-events:none}
+.book-modal[hidden]{display:none}.book-modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:18px}
+.modal-backdrop{position:absolute;inset:0;background:#080b12d9;backdrop-filter:blur(8px)}
+.book-dialog{position:relative;z-index:1;width:min(900px,100%);max-height:min(92vh,1000px);overflow:auto;background:#171d2b;border:1px solid #ffffff24;border-radius:22px;padding:clamp(20px,4vw,36px);box-shadow:0 30px 90px #0009}
+.modal-close{position:absolute;top:12px;right:14px;width:40px;height:40px;border-radius:50%;border:1px solid #ffffff25;background:#ffffff12;color:#fff;font-size:28px;cursor:pointer}
+.detail-layout{display:grid;grid-template-columns:minmax(130px,220px) minmax(0,1fr);gap:clamp(20px,4vw,34px);align-items:start;padding-right:22px}
+.detail-cover{width:100%;max-height:300px;object-fit:contain;border-radius:8px;box-shadow:0 15px 35px #0005}
+.detail-copy h2{font-size:clamp(27px,4vw,40px);margin:5px 0 14px}.detail-description{color:var(--muted);white-space:pre-line}
+.modal-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.button-disabled{opacity:.48;cursor:not-allowed;pointer-events:none}
+.reviews-area{border-top:1px solid var(--line);margin-top:28px;padding-top:22px}.reviews-area h3{font-size:25px;margin:0 0 8px}
+.review-list{display:grid;gap:12px;margin:18px 0}.review-empty{padding:18px;border:1px dashed #ffffff30;border-radius:12px;color:var(--muted)}
+.review-item{background:#ffffff08;border:1px solid var(--line);border-radius:12px;padding:14px 16px}.review-item p{margin:8px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}.review-heading{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.review-stars{color:#ffc46b;letter-spacing:2px}.review-date{font-size:12px!important;color:var(--muted);margin-top:2px!important}
+.review-form{display:grid;gap:9px;margin-top:22px}.review-form label{font-weight:700;font-size:14px}.review-form input,.review-form select,.review-form textarea{width:100%;font:15px/1.5 system-ui,sans-serif;color: black;background:#fff;border:1px solid #cbd0d8;border-radius:9px;padding:11px 12px}.review-form textarea{resize:vertical}.review-form button{justify-self:start}
+body.modal-open{overflow:hidden}
+@media(max-width:580px){.book-dialog{padding:20px 16px}.detail-layout{grid-template-columns:100px minmax(0,1fr);gap:15px;padding-right:0}.detail-cover{max-height:170px}.detail-copy h2{font-size:25px}.modal-close{top:8px;right:8px;width:34px;height:34px;font-size:23px}.modal-actions{flex-direction:column}.modal-actions .button{width:100%}}
+
+</style>
+</head>
+<body>
+<header class="site-header"><nav class="nav" aria-label="Main navigation"><div class="brand">📚 Books @Sidharth V. Nair </div><div class="nav-actions"><a class="button button-secondary" href="#books">Explore books</a><a class="button button-primary" href="../My-Text-Editor/index.html">📖 Open Reading Library</a></div></nav></header>
+<main>
+<section class="hero wrap"><div class="eyebrow">A collection of thoughts</div><h1>Stories, ideas, and a more meaningful life.</h1><p>Welcome, reader. I'm Sidharth V. Nair, and this is the home of my books—ideas about discipline, the life lessons we discover along the way, and much more.</p><div class="hero-actions"><a class="button button-primary" href="../My-Text-Editor/index.html">📖 Visit the Reading Library <span aria-hidden="true">→</span></a><a class="button button-secondary" href="#books">Discover the books</a></div></section>
+<section class="section wrap" id="books"><div class="eyebrow">The collection</div><h2 class="section-heading">The Path To A Meaningful Life</h2><p class="section-intro">Choose a book to explore its description, reader reviews, reading experience, and purchase options.</p>
+<div class="book-grid">
+<article class="book-card book-card-clickable" data-book="hidden-power" tabindex="0" role="button" aria-label="View details for The Hidden Power Of Discipline">
+<img class="cover" src="../My-Text-Editor/assets/hidden-power-cover.svg" alt="Cover artwork for The Hidden Power Of Discipline">
+<div><span class="pill">Published book</span><h3>The Hidden Power Of Discipline</h3><p>A practical guide to discipline, focus, consistent habits, and building a life with purpose.</p><span class="button button-primary">Book details &amp; reviews →</span></div></article>
+<article class="book-card book-card-clickable" data-book="brothers-sisters" tabindex="0" role="button" aria-label="View details for Brothers, Sisters">
+<img class="cover" src="../My-Text-Editor/assets/brothers-sisters-cover.svg" alt="Cover artwork for Brothers, Sisters">
+<div><span class="pill">Ongoing work</span><h3>Brothers, Sisters</h3><p>A story exploring the bonds, challenges, and lessons found in family relationships.</p><span class="button button-primary">Book details &amp; reviews →</span></div></article>
+</div></section>
+<div class="book-modal" id="bookModal" hidden aria-hidden="true">
+<div class="modal-backdrop" data-close-modal></div>
+<section class="book-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+<button class="modal-close" type="button" aria-label="Close book details" data-close-modal>×</button>
+<div class="detail-layout"><img id="modalCover" class="detail-cover" src="" alt="">
+<div class="detail-copy"><span id="modalStatus" class="pill"></span><h2 id="modalTitle"></h2><p id="modalDescription" class="detail-description"></p>
+<div class="modal-actions"><a id="readNow" class="button button-primary" href="../My-Text-Editor/viewer.html">📖 Read Now</a><a id="buyNow" class="button button-secondary" href="#" target="_blank" rel="noopener noreferrer">Buy Now ↗</a></div>
+<p id="buyNote" class="small"></p></div></div>
+<section class="reviews-area"><h3>Reader reviews</h3><p class="small">Reviews are shared with readers through our online review database. Please keep reviews respectful. No sample or fake reviews are displayed.</p>
+<div id="reviewList" class="review-list"></div>
+<form id="reviewForm" class="review-form"><label for="reviewName">Your display name</label><input id="reviewName" name="name" maxlength="50" placeholder="Name (optional)">
+<label for="reviewRating">Rating</label><select id="reviewRating" name="rating" required><option value="5">★★★★★ — 5 stars</option><option value="4">★★★★☆ — 4 stars</option><option value="3">★★★☆☆ — 3 stars</option><option value="2">★★☆☆☆ — 2 stars</option><option value="1">★☆☆☆☆ — 1 star</option></select>
+<label for="reviewText">Your review</label><textarea id="reviewText" name="review" maxlength="1200" rows="4" required placeholder="Share your honest thoughts about this book…"></textarea>
+<button class="button button-primary" type="submit">Submit review</button><p id="reviewMessage" class="small" role="status"></p></form>
+</section></section></div>
+<script>
+const bookDetails = {
+  
+  "hidden-power": {
+	title: "The Hidden Power Of Discipline",
+	status: "Published book",
+	description: `The Hidden Power Of Discipline: The Perfect Guide to Build a Disciplined Lifestyle. (Scroll for free reading and paperback buying options)
+
+	The first book that I have written. It's on discipline and its hidden power; it's the guide to discipline.
+
+	What separates successful people from the rest?
+
+	It’s not talent.
+	It’s not luck.
+	It’s discipline.
+
+	In a world full of distractions, staying focused and consistent has become one of the hardest challenges. Most people start strong—but quit too soon. They lose motivation, break habits, and fall back into the same cycle.
+
+	This book is your way out.
+
+	The Hidden Power Of Discipline is a practical and powerful guide designed to help you take control of your mind, build strong habits, and create a life of purpose and consistency.
+
+	Inside this book, you will discover:
+	• How to build unbreakable self-discipline
+	• The secret to staying consistent even when motivation fades
+	• Simple daily habits that improve focus and productivity
+	• How to develop mental toughness and resilience
+	• Ways to overcome procrastination and distractions
+
+	This book is not about perfection. It’s about progress.
+
+	If you are ready to:
+	• Take control of your life
+	• Stay focused on your goals
+	• Build a strong and disciplined mindset
+
+	Then this book is for you.
+
+	Start your journey today. Become the disciplined version of yourself.`,
+	cover: "../My-Text-Editor/assets/hidden-power-cover.svg",
+	reader: "../My-Text-Editor/viewer.html?book=hidden-power",
+	buy: 	"https://www.amazon.com/Hidden-Power-Discipline-Disciplined-Meaningfull/dp/B0GVG5YMV1/ref=tmm_pap_swatch_0?asin=B0GVG5YMV1&revisionId=&format=4&depth=1"
+	},
+
+  "brothers-sisters": {
+    title: "Brothers, Sisters",
+    status: "Ongoing work",
+    description: `Brothers, Sisters: A Short-But-Strong Guide to Building Stronger Sibling Bonds.
+
+Have you ever fought with your brother or sister over something small?
+
+Have misunderstandings turned into arguments?
+
+Has silence replaced the conversations you once enjoyed?
+
+Have you ever wondered how to make things normal again?
+
+You're not alone.
+
+Sibling relationships can be filled with love, laughter, and unforgettable memories. But sometimes, impatience, blame, ego, and misunderstandings can turn small disagreements into bigger problems.
+
+But what if you could understand these problems differently? What if you could take the first step towards making things better?
+
+Brothers, Sisters is a short-but-strong guide designed to help you understand sibling conflicts, communicate better, and rebuild the bond that matters to you.
+
+Inside this book, you will explore:
+
+- Why misunderstandings lead to fights
+- How blaming and teasing can keep arguments going
+- Why silence can create distance between siblings
+- How to apologise sincerely and put ego aside
+- The importance of talking again after a fight
+- How patience, kindness, and helpful actions can rebuild trust
+
+This book is not about proving who is right or wrong.
+
+It's about understanding each other.
+
+It's about learning that a stronger relationship doesn't require perfection, but patience, effort, and the willingness to make things better.
+
+If you are ready to:
+
+- Understand your sibling better
+- Break the cycle of arguments and misunderstandings
+- Take the first step towards rebuilding your bond
+
+Then this book is for you.
+
+Start your journey today.
+
+Understand each other. Rebuild your bond. Make your sibling relationship stronger.`,
+    cover: "../My-Text-Editor/assets/brothers-sisters-cover.svg",
+    reader: "../My-Text-Editor/viewer.html?book=brothers-sisters",
+    buy: ""
+  }
+};
+let activeBookId = null;
+const modal = document.getElementById("bookModal");
+const safeText = (value) => String(value ?? "");
+function openBookDetails(id) {
+  const book = bookDetails[id];
+  if (!book) return;
+  activeBookId = id;
+  document.getElementById("modalTitle").textContent = book.title;
+  document.getElementById("modalStatus").textContent = book.status;
+  document.getElementById("modalDescription").textContent = book.description;
+  document.getElementById("modalCover").src = book.cover;
+  document.getElementById("modalCover").alt = "Cover artwork for " + book.title;
+  document.getElementById("readNow").href = book.reader;
+  const buy = document.getElementById("buyNow");
+  const buyNote = document.getElementById("buyNote");
+  if (book.buy) {
+    buy.href = book.buy; buy.classList.remove("button-disabled"); buy.setAttribute("aria-disabled", "false");
+    buyNote.textContent = "Opens the purchase page assigned by the author.";
+  } else {
+    buy.href = "#purchase-link-not-set"; buy.classList.add("button-disabled"); buy.setAttribute("aria-disabled", "true");
+    buyNote.textContent = "The author has not assigned a purchase URL for this book yet.";
+  }
+  modal.hidden = false;
+  loadReviews(); modal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+  document.querySelector(".modal-close").focus();
+}
+function closeBookDetails() {
+  modal.hidden = true; modal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+}
+document.querySelectorAll(".book-card-clickable").forEach(card => {
+  card.addEventListener("click", event => {
+    if (event.target.closest("a")) return;
+    openBookDetails(card.dataset.book);
+  });
+  card.addEventListener("keydown", event => {
+    if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openBookDetails(card.dataset.book); }
+  });
+});
+modal.querySelectorAll("[data-close-modal]").forEach(el => el.addEventListener("click", closeBookDetails));
+document.addEventListener("keydown", event => { if (event.key === "Escape" && !modal.hidden) closeBookDetails(); });
+document.getElementById("buyNow").addEventListener("click", event => {
+  if (event.currentTarget.getAttribute("aria-disabled") === "true") event.preventDefault();
+});
+const REVIEWS_API = "https://books-library-api.adultme4321.workers.dev";
+function apiBookId() { return activeBookId; }
+function formatReviewDate(value) {
+  if (!value) return "";
+  const d = new Date(String(value).replace(" ", "T") + (String(value).includes("Z") ? "" : "Z"));
+  return Number.isNaN(d.getTime()) ? String(value) : d.toLocaleDateString();
+}
+function renderReviews(reviews = []) {
+  const list = document.getElementById("reviewList");
+  if (!list) return;
+  list.replaceChildren();
+  if (!reviews.length) {
+    const empty = document.createElement("p");
+    empty.className = "review-empty";
+    empty.textContent = "No reviews yet. You can be the first to share an honest review.";
+    list.appendChild(empty);
+    return;
+  }
+  reviews.forEach(review => {
+    const article = document.createElement("article");
+    article.className = "review-item";
+    const heading = document.createElement("div");
+    heading.className = "review-heading";
+    const name = document.createElement("strong");
+    name.textContent = review.name || "Reader";
+    const stars = document.createElement("span");
+    stars.className = "review-stars";
+    const rating = Math.max(1, Math.min(5, Number(review.rating) || 5));
+    stars.textContent = "★".repeat(rating) + "☆".repeat(5 - rating);
+    stars.setAttribute("aria-label", rating + " out of 5 stars");
+    heading.append(name, stars);
+    const date = document.createElement("p");
+    date.className = "review-date";
+    date.textContent = formatReviewDate(review.created_at || review.date);
+    const body = document.createElement("p");
+    body.textContent = review.review_text || review.text || "";
+    article.append(heading, date, body);
+    list.appendChild(article);
+  });
+}
+async function loadReviews() {
+  const list = document.getElementById("reviewList");
+  const message = document.getElementById("reviewMessage");
+  if (!activeBookId || !list) return;
+  list.replaceChildren();
+  const loading = document.createElement("p");
+  loading.className = "review-empty";
+  loading.textContent = "Loading shared reviews…";
+  list.appendChild(loading);
+  try {
+    const response = await fetch(`${REVIEWS_API}/reviews?book_id=${encodeURIComponent(apiBookId())}`, {cache:"no-store"});
+    if (!response.ok) throw new Error(`Reviews request failed (${response.status})`);
+    const data = await response.json();
+    renderReviews(Array.isArray(data.reviews) ? data.reviews : []);
+    if (message && message.dataset.kind === "load-error") message.textContent = "";
+  } catch (error) {
+    list.replaceChildren();
+    const failed = document.createElement("p");
+    failed.className = "review-empty";
+    failed.textContent = "Shared reviews could not load. Check your connection and refresh the page.";
+    list.appendChild(failed);
+    if (message) { message.textContent = "Could not connect to the review service."; message.dataset.kind = "load-error"; }
+    console.error("Could not load shared reviews:", error);
+  }
+}
+const reviewForm = document.getElementById("reviewForm");
+if (reviewForm) {
+  reviewForm.addEventListener("submit", async event => {
+    event.preventDefault();
+    const message = document.getElementById("reviewMessage");
+    const textField = document.getElementById("reviewText");
+    const text = textField.value.trim();
+    if (!activeBookId) { if (message) message.textContent = "Open a book's details before submitting a review."; return; }
+    if (!text) { if (message) message.textContent = "Please write a review before submitting."; textField.focus(); return; }
+    const submit = reviewForm.querySelector('button[type="submit"]');
+    if (submit) submit.disabled = true;
+    if (message) { message.textContent = "Submitting your review…"; message.dataset.kind = ""; }
+    try {
+      const response = await fetch(`${REVIEWS_API}/reviews`, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+          book_id: apiBookId(),
+          name: document.getElementById("reviewName").value.trim().slice(0,50) || "Reader",
+          rating: Math.max(1, Math.min(5, Number(document.getElementById("reviewRating").value) || 5)),
+          review_text: text.slice(0,1200)
+        })
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || `Submission failed (${response.status})`);
+      reviewForm.reset();
+      if (message) message.textContent = "Review submitted! Refreshing shared reviews…";
+      await loadReviews();
+      if (message) message.textContent = "Your review was submitted successfully.";
+    } catch (error) {
+      if (message) message.textContent = `Could not submit review: ${error.message || "check your connection and try again"}.`;
+      console.error("Could not submit shared review:", error);
+    } finally { if (submit) submit.disabled = false; }
+  });
+}
+</script>
+<section class="section wrap"><div class="story"><div class="eyebrow">A note to readers</div><h2 class="section-heading">Thank you for being here.</h2><p>Writing these books has been a journey of learning and sharing. Your time, encouragement, and support mean a lot. The reading library is the place to explore the available reading experience.</p><a class="button button-primary" href="../My-Text-Editor/index.html">Go to My Reading Library →</a></div></section>
+<section class="section wrap"><div class="eyebrow">Looking ahead</div><h2 class="section-heading">Future goals</h2><div class="future"><div class="story"><h3>For the books</h3><ul class="list"><li>Continue and complete Brothers, Sisters.</li><li>Continue The Path To A Meaningful Life series.</li><li>Explore additional places to make the books available.</li></ul></div><div class="story"><h3>For the website</h3><ul class="list"><li>Improve the online reading experience.</li><li>Present accurate book covers and descriptions.</li><li>Build a reliable, reader-friendly home for the collection.</li></ul></div></div></section>
+</main><footer class="site-footer"><div class="footer-inner"><p>Made by Sidharth V. Nair.</p><strong>Thank you for reading.</strong><p class="small">Book availability and reading access depend on the content published in the reading library.</p></div></footer>
+</body></html>

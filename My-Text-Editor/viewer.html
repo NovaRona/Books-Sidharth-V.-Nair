@@ -1,0 +1,137 @@
+<!--- Made by Human(s), Made by Sidharth --->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>EBook Reader</title>
+
+<style>
+:root{--reader-font-size:18px;--reader-line-height:1.65;--app-bg:#eef0f3;--ink:#20242b;--muted:#69717d;--accent:#3159a8;--paper:#fff;--page-border:#d9dde4}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;width:100%}
+body{min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--app-bg);display:flex;flex-direction:column}
+
+.app-header{min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 20px;background:#fff;border-bottom:1px solid #dfe3e9}
+.brand-area{min-width:0;display:flex;flex-direction:column;gap:3px}
+.brand-label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:750;color:var(--muted)}
+#bookTitle{margin:0;font-size:17px;font-weight:650;line-height:1.3}
+.header-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.bookmark-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:38px;padding:8px 13px;border:1px solid #cfd5df;border-radius:8px;background:#fff;color:#303844;font:inherit;font-size:13px;font-weight:650;cursor:pointer}
+.bookmark-button:hover{background:#f4f6fa;border-color:#9ca8ba}
+.bookmark-button[aria-pressed=true]{color:#234a95;background:#edf3ff;border-color:#9eb7ed}
+.bookmark-button svg{width:17px;height:17px;flex:none}
+
+main{width:100%;flex:1;display:flex;flex-direction:column;align-items:center;padding:6px 8px 6px}
+.reader-status{width:100%;max-width:1800px;display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 auto 6px;color:var(--muted);font-size:12px}
+#bookmarkStatus{text-align:right}
+
+.book{width:min(100%,calc((100vh - 30px)*1.414));height:calc(100vh - 80px);max-height:none;min-height:0;aspect-ratio:1.414 / 1;display:flex;background:#fff;border:1px solid var(--page-border);box-shadow:0 8px 28px rgba(29,38,53,.10);overflow:hidden}
+.page{position:relative;width:50%;height:100%;min-width:0;background:#fff;overflow:hidden}
+.page.left{border-right:1px solid #e0e3e8}
+.page-inner{position:absolute;inset:0;padding:44px 48px 66px;overflow:hidden}
+.text-content{width:100%;height:100%;overflow:hidden;color:#24272d;font-family:Georgia,"Times New Roman",serif;font-size:var(--reader-font-size,18px);line-height:var(--reader-line-height,1.65);overflow-wrap:anywhere;white-space:pre-wrap;user-select:text}
+.book-heading{font-family:Georgia,"Times New Roman",serif;font-size:1.55em;line-height:1.2;font-weight:700;margin:0 0 .65em;break-after:avoid}
+.book-paragraph{margin:0 0 .85em;white-space:pre-wrap}
+.book-gap{height:.65em}
+.page-number{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:#7b828d;font-size:11px;font-variant-numeric:tabular-nums}
+.title{position:absolute;top:42%;left:28px;right:28px;text-align:center;font-family:Georgia,"Times New Roman",serif;font-size:clamp(24px,3.2vw,42px);line-height:1.2;font-weight:700;color:#252a32;overflow-wrap:anywhere}
+
+.page-navigation{position:absolute;z-index:3;bottom:9px;display:flex;align-items:center;justify-content:center;min-width:90px;min-height:34px;border:1px solid #d2d7df;border-radius:7px;padding:7px 11px;background:rgba(255,255,255,.97);color:#303844;font:inherit;font-size:12px;font-weight:650;cursor:pointer;box-shadow:0 2px 8px rgba(25,35,50,.08)}
+.page-navigation.previous{left:12px}
+.page-navigation.next{right:12px}
+.page-navigation:hover:not(:disabled){background:#f1f4f8}
+.page-navigation:disabled{opacity:.4;cursor:not-allowed}
+.reader-footer{margin-top:4px;color:#7a828e;font-size:11px;text-align:center}
+
+@media(max-width:700px){
+.app-header{padding:9px 12px;gap:8px}
+#bookTitle{font-size:14px}
+.bookmark-button{min-height:36px;padding:7px 9px;font-size:12px}
+main{padding:6px 4px}
+.reader-status{padding:0 4px;font-size:11px;margin-bottom:5px}
+.book{width:100%;height:calc(100vh - 55px);aspect-ratio:auto;max-height:none}
+.page-inner{padding:32px 13px 58px}
+.text-content{font-size:var(--reader-font-size,14px);line-height:1.5}
+.title{left:10px;right:10px;font-size:clamp(17px,4.5vw,28px)}
+.page-navigation{min-width:0;min-height:32px;padding:6px 8px;font-size:11px}
+.page-navigation.previous{left:5px}
+.page-navigation.next{right:5px}
+}
+
+@media(max-width:380px){
+.brand-label{font-size:9px}
+#bookTitle{font-size:12px}
+.bookmark-button{gap:5px;padding:7px}
+.page-inner{padding-left:9px;padding-right:9px}
+.text-content{font-size:var(--reader-font-size,12px)}
+}
+</style>
+</head>
+
+
+<body>
+<header class="app-header"><div class="brand-area"><div class="brand-label">My Books · Reader</div><h1 id="bookTitle">EBook Reader</h1></div><div class="header-actions"><button id="goToBookmarkButton" class="bookmark-button" type="button" hidden>Go to bookmark</button><button id="bookmarkButton" class="bookmark-button" type="button" aria-pressed="false" title="Bookmark this spread"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4.75A1.75 1.75 0 0 1 7.75 3h8.5A1.75 1.75 0 0 1 18 4.75V21l-6-4-6 4V4.75Z"/></svg><span id="bookmarkButtonLabel">Bookmark page</span></button></div></header>
+<main><div class="reader-status"><span id="pageStatus">Preparing your book…</span><span id="bookmarkStatus" aria-live="polite"></span></div><div class="book" aria-label="Two-page book view"><section class="page left" aria-label="Left page"><div class="page-inner" id="leftContent"></div><div class="page-number" id="leftPageNumber"></div><button id="previousButton" class="page-navigation previous" type="button" onclick="previousPages()">← Previous</button></section><section class="page" aria-label="Right page"><div class="page-inner" id="rightContent"></div><div class="page-number" id="rightPageNumber"></div><button id="nextButton" class="page-navigation next" type="button" onclick="nextPages()">Next →</button></section></div><div class="reader-footer">Use ← and → on your keyboard to turn pages</div></main>
+<script>
+'use strict';
+let currentPage=0,pages=[],dates=[],bookTitle='EBook Reader',importedBook=null,readerFontSize=18,resizeHandle=null;
+let activeBookKey=new URLSearchParams(location.search).get('book')||'default-book';
+const $=id=>document.getElementById(id);
+const escapeHTML=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+function bookmarkStorageKey(){return 'myBooks.reader.bookmark.'+activeBookKey}
+function readBookmark(){try{const v=JSON.parse(localStorage.getItem(bookmarkStorageKey())||'null');return v&&Number.isInteger(v.page)&&v.page>=0?v:null}catch(_){return null}}
+function updateBookmarkUI(){const b=readBookmark(),same=!!b&&b.page===currentPage;$('goToBookmarkButton').hidden=!b;$('bookmarkButton').setAttribute('aria-pressed',same?'true':'false');$('bookmarkButtonLabel').textContent=same?'Bookmarked':'Bookmark page';$('bookmarkButton').title=same?'Remove this bookmark':'Bookmark this spread';if(b&&!same)$('bookmarkStatus').textContent='A saved bookmark is available';else if(!b)$('bookmarkStatus').textContent=''}
+function goToBookmark(){const b=readBookmark();if(!b)return;restoreBookmark();render();$('bookmarkStatus').textContent='Returned to your saved bookmark'}
+function toggleBookmark(){const b=readBookmark();try{if(b&&b.page===currentPage){localStorage.removeItem(bookmarkStorageKey());$('bookmarkStatus').textContent='Bookmark removed';updateBookmarkUI()}else{localStorage.setItem(bookmarkStorageKey(),JSON.stringify({page:currentPage,anchor:(pages[currentPage+1]||pages[currentPage]||{}).plain?.trim().slice(0,100)||'',savedAt:new Date().toISOString()}));$('bookmarkStatus').textContent='Bookmark saved';updateBookmarkUI()}}catch(e){console.error(e);$('bookmarkStatus').textContent='Could not save bookmark in this browser'}}
+function blockHTML(block,textOverride){const text=textOverride===undefined?block.text:textOverride;if(block.type==='heading')return `<h2 class="book-heading">${escapeHTML(text)}</h2>`;if(block.type==='gap')return '<div class="book-gap" aria-hidden="true"></div>';return `<p class="book-paragraph">${escapeHTML(text).replace(/\n/g,'<br>')}</p>`}
+function parseContinuousText(content){const lines=String(content??'').replace(/\r\n?/g,'\n').split('\n'),blocks=[];let paragraph=[],blankRun=0;const flush=()=>{if(paragraph.length){blocks.push({type:'paragraph',text:paragraph.join('\n')});paragraph=[]}};for(const line of lines){const t=line.trim();if(t==='[[PAGE_BREAK]]'){flush();blankRun=0;blocks.push({type:'pagebreak'});continue}if(t==='[[BLANK_PAGE]]'){flush();blankRun=0;blocks.push({type:'blankpage'});continue}if(t===''){flush();blankRun++;if(blankRun<=2)blocks.push({type:'gap'});continue}blankRun=0;if(/^#\s+/.test(line)){flush();blocks.push({type:'heading',text:line.replace(/^#\s+/,'').trim()})}else paragraph.push(line)}flush();while(blocks.length&&blocks[0].type==='gap')blocks.shift();while(blocks.length&&blocks[blocks.length-1].type==='gap')blocks.pop();return blocks}
+function makeMeasureArea(){const inner=document.querySelector('.page-inner'),cs=getComputedStyle(inner),measure=document.createElement('div');measure.className='text-content';const px=v=>Number.parseFloat(v)||0;const contentWidth=Math.max(50,inner.clientWidth-px(cs.paddingLeft)-px(cs.paddingRight));const contentHeight=Math.max(80,inner.clientHeight-px(cs.paddingTop)-px(cs.paddingBottom));Object.assign(measure.style,{position:'fixed',left:'-100000px',top:'0',width:contentWidth+'px',height:contentHeight+'px',visibility:'hidden',pointerEvents:'none',overflow:'hidden',zIndex:'-1'});document.body.appendChild(measure);return {measure}}
+function htmlFits(m,a,b){m.innerHTML=a+b;return m.scrollHeight<=m.clientHeight+1}
+function bestParagraphPrefix(m,existing,text){let low=1,high=text.length,best=0;while(low<=high){const mid=Math.floor((low+high)/2);let cut=mid;if(mid<text.length){const boundary=Math.max(text.lastIndexOf(' ',mid),text.lastIndexOf('\n',mid),text.lastIndexOf('\t',mid));if(boundary>0&&boundary>=Math.floor(mid*.65))cut=boundary}if(htmlFits(m,existing,blockHTML({type:'paragraph'},text.slice(0,cut)))){best=cut;low=mid+1}else high=mid-1}return best}
+function paginateContent(content){const {measure}=makeMeasureArea(),result=[];let html='',plain='';const push=(force=false)=>{if(html||plain||force||!result.length)result.push({html,plain});html='';plain=''};const blocks=parseContinuousText(content);for(let i=0;i<blocks.length;i++){const b=blocks[i];if(b.type==='pagebreak'){push(true);continue}if(b.type==='blankpage'){if(html||plain)push(true);push(true);continue}const full=blockHTML(b);if(b.type==='heading'){const next=blocks[i+1];let test=full;if(next&&next.type==='paragraph')test+=blockHTML({type:'paragraph'},next.text.split('\n')[0].slice(0,180)||next.text.slice(0,1));if(html&&!htmlFits(measure,html,test))push(true)}if(b.type!=='paragraph'){if(htmlFits(measure,html,full)){html+=full;if(b.type==='heading')plain+=b.text+'\n'}else if(html){push(true);i--}else{html+=full;if(b.type==='heading')plain+=b.text+'\n'}continue}let rest=b.text;while(rest.length){if(htmlFits(measure,html,blockHTML({type:'paragraph'},rest))){html+=blockHTML({type:'paragraph'},rest);plain+=rest+'\n';rest='';break}const cut=bestParagraphPrefix(measure,html,rest);if(cut>0){const piece=rest.slice(0,cut);html+=blockHTML({type:'paragraph'},piece);plain+=piece;rest=rest.slice(cut);if(rest.length)push(true);continue}if(html){push(true);continue}const piece=rest.slice(0,1);html+=blockHTML({type:'paragraph'},piece);plain+=piece;rest=rest.slice(1);if(rest.length)push(true)}}if(html||plain||!result.length)push(true);document.body.removeChild(measure);return result}
+function contentPageHTML(page){return `<div class="text-content">${page?page.html:''}</div>`}
+function restoreBookmark(){const b=readBookmark();if(!b||!pages.length)return;let target=b.page;if(b.anchor){const found=pages.findIndex((p,i)=>i>0&&p.plain&&p.plain.includes(b.anchor));if(found>0)target=Math.floor((found-1)/2)*2}currentPage=Math.max(0,Math.min(target,Math.max(0,Math.floor((pages.length-1)/2)*2)))}
+function render(){const left=pages[currentPage],right=pages[currentPage+1];$('leftContent').innerHTML=left&&left.html.startsWith('<div class="title"')?left.html:contentPageHTML(left);$('rightContent').innerHTML=right?contentPageHTML(right):'';$('leftPageNumber').textContent=pages.length?'Page '+(currentPage+1):'';$('rightPageNumber').textContent=right?'Page '+(currentPage+2):'';$('pageStatus').textContent=pages.length?`Pages ${currentPage+1}${right?'–'+(currentPage+2):''} of ${pages.length}`:'No pages to display';$('previousButton').disabled=currentPage<=0;$('nextButton').disabled=currentPage+2>=pages.length;updateBookmarkUI()}
+function nextPages(){if(currentPage+2<pages.length){currentPage+=2;render()}}function previousPages(){if(currentPage>0){currentPage=Math.max(0,currentPage-2);render()}}
+function importBook(){const input=document.createElement('input');input.type='file';input.accept='.json,application/json';input.onchange=e=>{const file=e.target.files&&e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const imported=JSON.parse(reader.result);if(!imported||typeof imported!=='object')throw Error('Invalid book');bookTitle=typeof imported.title==='string'?imported.title:'My Book';activeBookKey='imported-'+(imported.id||file.name);dates=Array.isArray(imported.dates)?imported.dates.slice():[];importedBook=JSON.parse(JSON.stringify(imported));let content;if(typeof imported.content==='string')content=imported.content;else if(Array.isArray(imported.pages)){content=imported.pages.slice(1).map(p=>String(p??'')).join('\n\n');importedBook={...imported,content}}else throw Error('Expected content or pages');pages=[{html:`<div class="title">${escapeHTML(bookTitle)}</div>`,plain:''},...paginateContent(content)];currentPage=0;$('bookTitle').textContent=bookTitle;restoreBookmark();render()}catch(error){console.error(error);alert('Could not open this book. Choose a valid book JSON file.')}};reader.readAsText(file)};input.click()}
+$('bookmarkButton').addEventListener('click',toggleBookmark);$('goToBookmarkButton').addEventListener('click',goToBookmark);document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'&&!e.ctrlKey&&!e.altKey)nextPages();if(e.key==='ArrowLeft'&&!e.ctrlKey&&!e.altKey)previousPages();if(e.ctrlKey&&e.key.toLowerCase()==='o'){e.preventDefault();importBook()}});window.addEventListener('resize',()=>{clearTimeout(resizeHandle);resizeHandle=setTimeout(()=>{if(importedBook&&typeof importedBook.content==='string'){const anchor=(pages[currentPage+1]||pages[currentPage]||{}).plain?.trim().slice(0,70)||'';pages=[{html:`<div class="title">${escapeHTML(bookTitle)}</div>`,plain:''},...paginateContent(importedBook.content)];if(anchor){const found=pages.findIndex((p,i)=>i>0&&p.plain&&p.plain.includes(anchor));if(found>0)currentPage=Math.floor((found-1)/2)*2}render()}},160)});
+const requestedBook=new URLSearchParams(location.search).get('book');
+// The JSON files live in ./books/ beside this viewer. Keep these mappings in sync with the book links.
+const bookFiles={ 'brothers-sisters':'books/book1.json', 'hidden-power':'books/book2.json' };
+async function loadLibraryBook(bookId){
+  const path=bookFiles[bookId];
+  if(!path){render();return}
+  activeBookKey=bookId;
+  $('pageStatus').textContent='Loading book…';
+  try{
+    const response=await fetch(path,{cache:'no-store'});
+    if(!response.ok)throw new Error('Could not load '+path+' (HTTP '+response.status+')');
+    const draft=await response.json();
+    if(!draft||typeof draft.content!=='string')throw new Error('The JSON file must contain a string "content" field.');
+    importedBook=draft;
+    bookTitle=typeof draft.title==='string'?draft.title:'My Book';
+    $('bookTitle').textContent=bookTitle;
+    pages=[{html:`<div class="title">${escapeHTML(bookTitle)}</div>`,plain:''},...paginateContent(draft.content)];
+    currentPage=0;restoreBookmark();render();
+  }catch(error){
+    console.error('Automatic book loading failed:',error);
+    $('pageStatus').textContent='Could not load this book';
+    $('leftContent').innerHTML='<div class="text-content"><h2>Unable to load book</h2><p>Check that the books folder and its JSON file are published beside viewer.html. For local testing, open the site through a local web server rather than directly as a file.</p></div>';
+    $('rightContent').innerHTML='';
+    $('leftPageNumber').textContent='';$('rightPageNumber').textContent='';
+  }
+}
+if(requestedBook&&bookFiles[requestedBook]){loadLibraryBook(requestedBook)}
+else if(location.hash==='#open-editor-book'){try{const draft=JSON.parse(sessionStorage.getItem('continuousBookToRead')||'null');if(draft&&typeof draft.content==='string'){importedBook=draft;bookTitle=typeof draft.title==='string'?draft.title:'My Book';$('bookTitle').textContent=bookTitle;activeBookKey='editor-'+(draft.id||bookTitle);pages=[{html:`<div class="title">${escapeHTML(bookTitle)}</div>`,plain:''},...paginateContent(importedBook.content)];restoreBookmark();render()}else render()}catch(e){console.error(e);render()}}else render();
+</script>
+</body>
+
+</html>

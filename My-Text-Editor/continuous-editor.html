@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Continuous Book Editor</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at center,#444 0%,#222 100%);font-family:Georgia,serif;color:#eee;padding:22px}.app{max-width:1050px;margin:0 auto}.top{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:14px}h1{font-size:28px;margin:0;flex:1}.hint{color:#ccc;font-size:14px;line-height:1.5;margin:0 0 16px}.title{width:100%;font:18px Georgia,serif;padding:12px;border:1px solid #777;border-radius:7px;background:#fffdf2;color:#222}.content{display:block;width:100%;min-height:55vh;resize:vertical;margin-top:12px;padding:18px;border:1px solid #777;border-radius:7px;background:#fffdf2;color:#222;font:17px/1.65 Georgia,serif;white-space:pre-wrap}.buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}button{border:0;border-radius:6px;padding:10px 14px;background:#fffdf2;color:#222;font-weight:600;cursor:pointer}button.primary{background:#9dd8c8}button:hover{filter:brightness(.94)}.status{color:#ddd;font-size:13px;margin-top:10px}.back{color:#ddd;text-decoration:none;font-size:14px}
+</style>
+</head>
+<body><main class="app">
+<div class="top"><h1>✏️ Continuous Book Editor</h1><a class="back" href="index.html">← My Library</a></div>
+<p class="hint">Write your book as one continuous text document. The reader creates pages automatically. Use <b># Chapter Heading</b> on its own line for a heading, one Enter for a line break, a blank line for a paragraph gap, <code>[[PAGE_BREAK]]</code> to force a page break, or <code>[[BLANK_PAGE]]</code> to insert a blank page.</p>
+<input id="bookTitle" class="title" value="My Book" aria-label="Book title" placeholder="Book title">
+<textarea id="bookContent" class="content" spellcheck="false" aria-label="Book content" placeholder="# Chapter 1&#10;&#10;Start writing here..."></textarea>
+<div class="buttons"><button class="primary" id="save">Download JSON</button><button id="load">Import JSON</button><button id="read">Open in Reader</button><button id="sample">Load Example</button><button id="clear">Clear</button></div>
+<div id="status" class="status" role="status">Your writing stays in this page until you download it. Export regularly to keep a copy.</div>
+<input type="file" id="fileInput" accept=".json,application/json" hidden>
+<script>
+const titleInput=document.getElementById('bookTitle');const contentInput=document.getElementById('bookContent');const status=document.getElementById('status');
+function bookData(){return {version:2,title:titleInput.value.trim()||'My Book',content:contentInput.value};}
+function downloadBook(){const data=bookData();const blob=new Blob([JSON.stringify(data,null,2)+'\n'],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=(data.title.replace(/[^a-z0-9_-]+/gi,'-').replace(/^-|-$/g,'')||'my-book')+'.json';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);status.textContent='JSON downloaded. Keep that file as your book backup.';}
+document.getElementById('save').addEventListener('click',downloadBook);
+document.getElementById('load').addEventListener('click',()=>document.getElementById('fileInput').click());
+document.getElementById('fileInput').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{const data=JSON.parse(await file.text());titleInput.value=typeof data.title==='string'?data.title:'My Book';if(typeof data.content==='string'){contentInput.value=data.content;}else if(Array.isArray(data.pages)){contentInput.value=data.pages.slice(1).map(x=>String(x??'')).join('\n\n');status.textContent='Legacy pages imported as continuous text. Review the result before exporting.';}else throw new Error('Unsupported book format');if(typeof data.content==='string')status.textContent='Book loaded. Download JSON when you want to save your changes.';}catch(err){alert('Could not load this JSON book.');}e.target.value='';});
+document.getElementById('read').addEventListener('click',()=>{const data=bookData();try{sessionStorage.setItem('continuousBookToRead',JSON.stringify(data));}catch(e){}window.location.href='viewer.html#open-editor-book';});
+document.getElementById('sample').addEventListener('click',()=>{titleInput.value='My First Book';contentInput.value='# Chapter 1\n\nReplace this text with your own writing.\n\nThis is a second paragraph.\n\n# Chapter 2\n\nContinue your book here.\n\n[[PAGE_BREAK]]\nThis paragraph begins on a new page.\n\n[[BLANK_PAGE]]\nText after the intentional blank page.';status.textContent='Example loaded. Replace it with your own writing.';});
+document.getElementById('clear').addEventListener('click',()=>{if(confirm('Clear the title and text? Download a copy first if you need to keep it.')){titleInput.value='My Book';contentInput.value='';status.textContent='Cleared.';}});
+</script>
+</main></body></html>
