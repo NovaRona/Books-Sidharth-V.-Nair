@@ -1,0 +1,13 @@
+name = "books-review-api"
+main = "src/index.js"
+compatibility_date = "2026-10-24"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "books-reviews"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+[vars]
+# Exact public website origin, e.g. https://your-site.pages.dev
+ALLOWED_ORIGIN = "https://REPLACE-WITH-YOUR-SITE-DOMAIN"
